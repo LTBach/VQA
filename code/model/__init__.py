@@ -1,4 +1,2 @@
-from .attention import BiAttention
+from .vector import Vector
 from .classifier import SimpleClassifier
-from .counting import Counter
-from .fc import FCNet, BCNet

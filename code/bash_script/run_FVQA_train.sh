@@ -1,0 +1,4 @@
+data=3;
+python code/main.py --gpu_id 1 --exp_name knowledge_space --exp_id W2V --fusion_model SAN --data_choice 3 --method_choice W2V --save_model 1
+python code/main.py --gpu_id 1 --exp_name semantic_space --exp_id W2V --fusion_model SAN --data_choice 3 --method_choice W2V  --save_model 1 --relation_map 1
+python code/main.py --gpu_id 1 --exp_name object_space --exp_id W2V --fusion_model SAN --data_choice 3 --method_choice W2V  --save_model 1 --fact_map 1

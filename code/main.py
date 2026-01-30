@@ -15,15 +15,15 @@ import warnings
 from pprint import pprint
 
 # self-defined
-# import model.fusion_net as fusion_net
-# import model.answer_net as answer_net
-# from model import Vector, SimpleClassifier
-# from config import cfg
-# from torchlight import initialize_exp, set_seed, snapshot, get_dump_path, show_params
-# from utils import unseen_mask, freeze_layer, cosine_sim, Metrics, instance_bce_with_logits
-# from data import fvqa
-# import copy
-# torch.multiprocessing.set_start_method('spawn')
+import model.fusion_net as fusion_net
+import model.answer_net as answer_net
+from model import Vector, SimpleClassifier
+from config import cfg
+from torchlight import initialize_exp, set_seed, snapshot, get_dump_path, show_params
+from utils import unseen_mask, freeze_layer, cosine_sim, Metrics, instance_bce_with_logits
+from data import fvqa
+import copy
+torch.multiprocessing.set_start_method('spawn')
 
 warnings.filterwarnings('ignore')
 

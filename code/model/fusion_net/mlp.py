@@ -4,10 +4,9 @@ import torch.nn.functional as F
 import torch.nn.init as init
 from torch.autograd import Variable
 
-# from .fc import GroupMLP
-# from .language_model import WordEmbedding
-from model import GroupMLP
-from model import WordEmbedding
+from ..fc import GroupMLP
+from ..language_model import WordEmbedding
+
 from utils import freeze_layer
 
 

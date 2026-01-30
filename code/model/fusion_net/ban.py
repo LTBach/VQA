@@ -7,18 +7,12 @@ This code is adapted from: https://github.com/jnhwkim/ban-vqa (written by Jin-Hw
 """
 import torch.nn as nn
 
-# from .attention import BiAttention
-# from .classifier import SimpleClassifier
-# from .counting import Counter
-# from .fc import FCNet, BCNet
-# from .language_model import WordEmbedding, UpDnQuestionEmbedding
-# from utils import freeze_layer
+from ..attention import BiAttention
+from ..classifier import SimpleClassifier
+from ..counting import Counter
+from ..fc import FCNet, BCNet
+from ..language_model import WordEmbedding, UpDnQuestionEmbedding
 
-from model import BiAttention
-from model import SimpleClassifier
-from model import Counter
-from model import FCNet, BCNet
-from model import WordEmbedding, UpDnQuestionEmbedding
 from utils import freeze_layer
 
 

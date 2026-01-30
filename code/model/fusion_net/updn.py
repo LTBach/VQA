@@ -2,14 +2,11 @@
 import torch
 import torch.nn as nn
 
-# from .language_model import WordEmbedding, UpDnQuestionEmbedding
-# from .attention import UpDnAttention
-# from .classifier import SimpleClassifier
-# from .fc import FCNet
-from model import WordEmbedding, UpDnQuestionEmbedding
-from model import UpDnAttention
-from model import SimpleClassifier
-from model import FCNet
+from ..language_model import WordEmbedding, UpDnQuestionEmbedding
+from ..attention import UpDnAttention
+from ..classifier import SimpleClassifier
+from ..fc import FCNet
+
 from utils import freeze_layer
 
 class UD(nn.Module):
