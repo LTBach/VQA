@@ -1,3 +1,8 @@
+# Ignore knowledge graph
 kg/
+
+# Ignore dataset
 data/
+
+# Ignore Jupyter Notebook
 *.ipynb
