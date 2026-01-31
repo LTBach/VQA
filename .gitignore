@@ -4,5 +4,12 @@ kg/
 # Ignore dataset
 data/
 
+# Ignore dump 
+dump/
+
 # Ignore Jupyter Notebook
 *.ipynb
+
+# Ignore Python byte-compiled files
+**/__pycache__/
+*.pyc

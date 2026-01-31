@@ -15,10 +15,15 @@ class cfg():
 
         self.joint_test_way = 0
 
+        # /code
         self.this_dir = osp.dirname(__file__)
-        self.data_root = osp.abspath(osp.join(self.this_dir, '..', '..', 'data', 'KG_VQA'))
-        self.this_dir = osp.dirname(__file__)
+        # /
         self.project_root = osp.abspath(osp.join(self.this_dir, '..'))
+        # /data
+        self.data_root = osp.abspath(osp.join(self.project_root, 'data'))
+        # /dump
+        self.dump_root = osp.abspath(osp.join(self.project_root, 'dump'))
+
         self.method_choice = "KG"
         self.ans_fusion = 'RNN_concate'
         self.fusion_model = ''
@@ -39,30 +44,54 @@ class cfg():
         self.FVQA.data_choice = "0"
 
         self.FVQA.entity_num = "all"
+        # /data/fvqa
         self.FVQA.data_path = osp.join(self.data_root, "fvqa")
 
+        # /data/fvqa/exp_data
         self.FVQA.exp_data_path = osp.join(self.FVQA.data_path, "exp_data")
-        self.FVQA.common_data_path = osp.join(self.FVQA.exp_data_path, "common_data")
-        self.FVQA.test_data_path = osp.join(self.FVQA.exp_data_path, "test_data")
-        self.FVQA.train_data_path = osp.join(self.FVQA.exp_data_path, "train_data")
-        self.FVQA.seen_train_data_path = osp.join(self.FVQA.exp_data_path, "train_seen_data")
-        self.FVQA.unseen_test_data_path = osp.join(self.FVQA.exp_data_path, "test_unseen_data")
-        self.FVQA.seen_test_data_path = osp.join(self.FVQA.exp_data_path, "test_seen_data")
-        self.FVQA.model_save_path = osp.join(self.FVQA.data_path, "model_save")
-        self.FVQA.runs_path = osp.join(self.FVQA.data_path, "model_save")
+        # /data/fvqa/common_data
+        self.FVQA.common_data_path = osp.join(self.FVQA.data_path, "common_data")
 
+        # /data/fvqa/exp_data/test_data
+        self.FVQA.test_data_path = osp.join(self.FVQA.exp_data_path, "test_data")
+        # /data/fvqa/exp_data/train_data
+        self.FVQA.train_data_path = osp.join(self.FVQA.exp_data_path, "train_data")
+        # /data/fvqa/exp_data/train_seen_data
+        self.FVQA.seen_train_data_path = osp.join(self.FVQA.exp_data_path, "train_seen_data")
+        # /data/fvqa/exp_data/test_unseen_data
+        self.FVQA.unseen_test_data_path = osp.join(self.FVQA.exp_data_path, "test_unseen_data")
+        # /data/fvqa/exp_data/test_seen_data
+        self.FVQA.seen_test_data_path = osp.join(self.FVQA.exp_data_path, "test_seen_data")
+
+        # /dump/fvqa
+        self.FVQA.dump_path = osp.join(self.dump_root, "fvqa")
+        # /dump/fvqa/model_save
+        self.FVQA.model_save_path = osp.join(self.FVQA.dump_path, "model_save")
+        # /dump/fvqa/model_save
+        self.FVQA.runs_path = osp.join(self.FVQA.dump_path, "model_save")
+
+        # /data/fvqa/exp_data
         self.FVQA.qa_path = self.FVQA.exp_data_path
+        # /data/fvqa/common_data/'fvqa-resnet-14x14.h5'
         self.FVQA.feature_path = osp.join(self.FVQA.common_data_path, 'fvqa-resnet-14x14.h5')
+        # /data/fvqa/common_data/answer.vocab.fvqa.(self.FVQA.max_ans).json
         self.FVQA.answer_vocab_path = osp.join(
             self.FVQA.common_data_path, 'answer.vocab.fvqa.' + str(self.FVQA.max_ans) + '.json')
+        # /data/fvqa/common_data/answer.vocab.fvqa.fact.(self.FVQA.max_ans).json
         self.FVQA.fact_vocab_path = osp.join(self.FVQA.common_data_path, 'answer.vocab.fvqa.fact.500.json')
+        # /data/fvqa/common_data/answer.vocab.fvqa.relation.(self.FVQA.max_ans).json
         self.FVQA.relation_vocab_path = osp.join(self.FVQA.common_data_path, 'answer.vocab.fvqa.relation.500.json')
 
+        # /data/fvqa/common_data/fact_relation_dict.data
         self.FVQA.fact_relation_to_ans_path = osp.join(self.FVQA.common_data_path, "fact_relation_dict.data")
+        # /data/fvqa/exp_data/images
         self.FVQA.img_path = osp.join(self.FVQA.qa_path, 'images')
 
+        # /data/fvqa/common_data/KG_embedding
         self.FVQA.kg_path = osp.join(self.FVQA.common_data_path, "KG_embedding")
+        # /data/fvqa/common_data/GAE_embedding
         self.FVQA.gae_path = osp.join(self.FVQA.common_data_path, "GAE_embedding")
+        # /data/fvqa/common_data/BERT_embedding
         self.FVQA.bert_path = osp.join(self.FVQA.common_data_path, "BERT_embedding")
 
         self.FVQA.gae_node_num = 3463
@@ -79,6 +108,7 @@ class cfg():
         self.embedding_size = 1024  # embedding dimensionality
         self.hidden_size = 2 * self.embedding_size  # hidden embedding
         # a joint question vocab across all dataset
+        # /data/fvqa/common_data_path/question.vocab.json
         self.question_vocab_path = osp.join(self.FVQA.common_data_path, 'question.vocab.json')  # 修改这里之后所有的预存文件（pt）都要删除
 
         # preprocess config

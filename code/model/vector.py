@@ -6,6 +6,7 @@ import os
 import os.path as osp
 import torch
 import io
+import gdown
 
 class Vector(object):
     def __init__(self, cache_path,
@@ -57,8 +58,10 @@ class Vector(object):
                     if not osp.exists(cache_path):
                         os.mkdir(cache_path)
 
-                    with tqdm(unit='B', unit_scale=True, miniters=1, desc=dest) as t:
-                        urlretrieve(url, dest, reporthook=reporthook(t))
+                    # with tqdm(unit='B', unit_scale=True, miniters=1, desc=dest) as t:
+                    #     urlretrieve(url, dest, reporthook=reporthook(t))
+                    
+                    gdown.download(url, dest, fuzzy=True)
 
                 print('[-] Extracting vectors into {}'.format(path))
                 ext = os.path.splitext(dest)[1][1:]
