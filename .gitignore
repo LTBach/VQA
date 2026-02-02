@@ -1,11 +1,11 @@
 # Ignore knowledge graph
-kg/
+/kg/
 
 # Ignore dataset
-data/
+/data/
 
-# Ignore dump 
-dump/
+# Ignore dump
+/dump/
 
 # Ignore Jupyter Notebook
 *.ipynb
@@ -13,3 +13,6 @@ dump/
 # Ignore Python byte-compiled files
 **/__pycache__/
 *.pyc
+
+# Ignore checkpoint of pretrained model
+/transfer_model
