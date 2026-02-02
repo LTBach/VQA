@@ -23,6 +23,8 @@ class cfg():
         self.data_root = osp.abspath(osp.join(self.project_root, 'data'))
         # /dump
         self.dump_root = osp.abspath(osp.join(self.project_root, 'dump'))
+        # /transfer_model
+        self.tranfer_model_root = osp.abspath(osp.join(self.project_root, 'transfer_model'))
 
         self.method_choice = "KG"
         self.ans_fusion = 'RNN_concate'
@@ -102,6 +104,8 @@ class cfg():
         # self.FVQA.dataset = 'mscoco'
 
         # self.dataset = self.FVQA
+
+        self.glove_path = osp.join(self.tranfer_model_root, 'GloVe_checkpoint')
 
         self.cache_path = osp.join(self.data_root, '.cache')
         self.output_path = self.FVQA.model_save_path

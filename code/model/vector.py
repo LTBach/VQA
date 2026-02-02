@@ -60,7 +60,7 @@ class Vector(object):
 
                     # with tqdm(unit='B', unit_scale=True, miniters=1, desc=dest) as t:
                     #     urlretrieve(url, dest, reporthook=reporthook(t))
-                    
+
                     gdown.download(url, dest, fuzzy=True)
 
                 print('[-] Extracting vectors into {}'.format(path))
@@ -111,9 +111,12 @@ class Vector(object):
                 vectors.extend(float(x) for x in entries)
                 itos.append(word)
 
+            print('flag1')
             self.itos = itos
+            print('flag2')
             self.stoi = {word: i for i, word in enumerate(itos)}
             self.vectors = torch.Tensor(vectors).view(-1, dim)
+            print('flag3')
             self.dim = dim
             print('* Caching vectors to {}'.format(path_pt))
             torch.save((self.itos, self.stoi, self.vectors, self.dim), path_pt)

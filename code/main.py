@@ -35,7 +35,7 @@ class Runner:
         self.log_dir = get_dump_path(args)
         self.model_dir = os.path.join(self.log_dir, 'model')
 
-        self.word2vec = Vector(args.FVQA.common_data_path)
+        self.word2vec = Vector(args.glove_path)
         # data load
         self.train_loader = fvqa.get_loader(args, self.word2vec, train=True)
         self.val_loader = fvqa.get_loader(args, self.word2vec, val=True)
