@@ -23,7 +23,12 @@ from torchlight import initialize_exp, set_seed, snapshot, get_dump_path, show_p
 from utils import unseen_mask, freeze_layer, cosine_sim, Metrics, instance_bce_with_logits
 from data import fvqa
 import copy
-torch.multiprocessing.set_start_method('spawn')
+
+try:
+    torch.multiprocessing.set_start_method('spawn')
+except RuntimeError:
+    pass
+
 
 warnings.filterwarnings('ignore')
 

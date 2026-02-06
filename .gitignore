@@ -1,8 +1,13 @@
 # Ignore knowledge graph
 /kg/
 
-# Ignore dataset
-/data/
+# Ignore large common_data
+/data/fvqa/common_data/fvqa-resnet-14x14.h5
+/data/fvqa/common_data/fvqa_36.hdf5
+/data/fvqa/common_data/fvqa36_imgid2idx.pkl
+
+# Ignore images
+/data/fvqa/exp_data/images
 
 # Ignore dump
 /dump/
