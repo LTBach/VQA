@@ -103,7 +103,57 @@ class cfg():
         # self.FVQA.task = 'OpenEnded'
         # self.FVQA.dataset = 'mscoco'
 
-        # self.dataset = self.FVQA
+        self.AOKVQA = edict()
+
+        # AKOVQA params
+        self.AOKVQA.max_ans = 500
+        self.AOKVQA.data_choice = "0"
+
+        self.AOKVQA.entity_num = "all"
+        # /data/aokvqa
+        self.AOKVQA.data_path = osp.join(self.data_root, "aokvqa")
+
+        # /data/aokvqa/exp_data
+        self.AOKVQA.exp_data_path = osp.join(self.AOKVQA.data_path, "exp_data")
+        # /data/aokvqa/common_data
+        self.AOKVQA.common_data_path = osp.join(self.AOKVQA.data_path, "common_data")
+
+        # /data/aokvqa/exp_data/test_data
+        self.AOKVQA.test_data_path = osp.join(self.AOKVQA.exp_data_path, "test_data")
+        # /data/aokvqa/exp_data/train_data
+        self.AOKVQA.train_data_path = osp.join(self.AOKVQA.exp_data_path, "train_data")
+        # /data/aokvqa/exp_data/train_seen_data
+        self.AOKVQA.seen_train_data_path = osp.join(self.AOKVQA.exp_data_path, "train_seen_data")
+        # /data/aokvqa/exp_data/test_unseen_data
+        self.AOKVQA.unseen_test_data_path = osp.join(self.AOKVQA.exp_data_path, "test_unseen_data")
+        # /data/aokvqa/exp_data/test_seen_data
+        self.AOKVQA.seen_test_data_path = osp.join(self.AOKVQA.exp_data_path, "test_seen_data")
+
+        # /dump/aokvqa
+        self.AOKVQA.dump_path = osp.join(self.dump_root, "aokvqa")
+        # /dump/aokvqa/model_save
+        self.AOKVQA.model_save_path = osp.join(self.AOKVQA.dump_path, "model_save")
+        # /dump/aokvqa/model_save
+        self.AOKVQA.runs_path = osp.join(self.AOKVQA.dump_path, "model_save")
+
+        # /data/aokvqa/exp_data
+        self.AOKVQA.qa_path = self.AOKVQA.exp_data_path
+        # /data/aokvqa/common_data/'aokvqa-resnet-14x14.h5'
+        self.AOKVQA.feature_path = osp.join(self.AOKVQA.common_data_path, 'aokvqa-resnet-14x14.h5')
+        # /data/aokvqa/common_data/answer.vocab.AOKVQA.(self.AOKVQA.max_ans).json
+        self.AOKVQA.answer_vocab_path = osp.join(
+            self.AOKVQA.common_data_path, 'answer.vocab.aokvqa.' + str(self.AOKVQA.max_ans) + '.json')
+        # /data/aokvqa/common_data/answer.vocab.aokvqa.fact.(self.AOKVQA.max_ans).json
+        self.AOKVQA.fact_vocab_path = osp.join(self.FVQA.common_data_path, 'answer.vocab.fvqa.fact.500.json')
+        # /data/aokvqa/common_data/answer.vocab.aokvqa.relation.(self.AOKVQA.max_ans).json
+        self.AOKVQA.relation_vocab_path = osp.join(self.AOKVQA.common_data_path, 'answer.vocab.aokvqa.relation.500.json')
+
+        # /data/aokvqa/common_data/fact_relation_dict.data
+        self.AOKVQA.fact_relation_to_ans_path = osp.join(self.AOKVQA.common_data_path, "fact_relation_dict.data")
+        # /data/aokvqa/exp_data/images
+        self.AOKVQA.img_path = osp.join(self.AOKVQA.qa_path, 'images')
+
+        self.dataset = self.FVQA
 
         self.glove_path = osp.join(self.tranfer_model_root, 'GloVe_checkpoint')
 
