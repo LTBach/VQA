@@ -2,15 +2,31 @@
 /kg/
 
 # Ignore large common_data
+## FVQA
 /data/fvqa/common_data/fvqa-resnet-14x14.h5
 /data/fvqa/common_data/fvqa_36.hdf5
 /data/fvqa/common_data/fvqa36_imgid2idx.pkl
+## AOKVQA
+/data/aokvqa/common_data/aokvqa-resnet-14x14.h5
+/data/aokvqa/common_data/aokvqa_36.hdf5
+/data/aokvqa/common_data/aokvqa36_imgid2idx.pkl
+
 
 # Ignore images
+## COCO 2014
 /data/fvqa/exp_data/images
+## COCO 2017
+/data/aokvqa/exp_data/images
+
+
+# Ignore raw data
+## FVQA
+/data/fvqa/exp_data/exp_data/raw
+## AOKVQA
+/data/aokvqa/exp_data/exp_data/raw
 
 # Ignore dump
-/dump/
+/dump
 
 # Ignore Jupyter Notebook
 *.ipynb

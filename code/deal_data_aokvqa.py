@@ -7,6 +7,7 @@ import re
 from utils import dele_a, transfer, hand_remove, deal_fact
 from collections import defaultdict
 import tqdm
+
 # import Levenshtein
 # import wordninja
 from data import fvqa, preprocess
@@ -38,6 +39,9 @@ class Runner:
         self.dump_train_500_path = osp.join(self.dump_train_path, "all_qs_dict_release_train_500.json")
         self.dump_val_500_path = osp.join(self.dump_val_path, "all_qs_dict_release_val_500.json")
 
+        self.dump_imgid2idx_path = osp.join(self.common_path, "aokvqa36_imgid2idx.pkl")
+        self.dump_queid2idx_path = osp.join(self.common_path, "aokvqa_queid2idx.pkl")
+
     # def statistics_of_ans_and_entity(self, path=None):
     #     with open(path, 'r') as fp:
     #         dic = json.load(fp)
@@ -66,29 +70,59 @@ class Runner:
     #         print("dic len:", dic_len)
 
     def create_filtered_data(self):
-        self.filter_data(self.train_path, self.dump_train_500_path)
-        self.filter_data(self.val_path, self.dump_val_500_path)
+        self._filter_data(self.train_path, self.dump_train_500_path)
+        self._filter_data(self.val_path, self.dump_val_500_path)
 
 
-    def filter_data(self, path=None, dump_path=None):
-        with open(path, 'r') as fp:
+    def _filter_data(self, path=None, dump_path=None):
+        with open(path, 'rb') as fp:
             data = json.load(fp)
 
-        with open(self.vocab_ans_500_path, 'r') as fp:
+        with open(self.vocab_ans_500_path, 'rb') as fp:
             dic = json.load(fp)
 
         ans_500_list = dic['answer'].keys()
-        new_data = []
+        new_data = {}
 
-        for idx in range(len(data)):
-            for ans in data[idx]['choices']:
+
+        for qa in data:
+            for ans in qa['choices']:
                 if ans in ans_500_list:
-                    new_data.append(data[idx])
+                    new_data[qa['question_id']] = qa
+                    break
 
         with open(dump_path, 'w') as fp:
             json.dump(new_data, fp)
 
+    def _create_id2idx(self, dump_path_1=None, dump_path_2=None):
+        with open(self.dump_train_500_path, 'rb') as fp:
+            train_500_data = json.load(fp)
+        with open(self.dump_val_500_path, 'rb') as fp:
+            val_500_data = json.load(fp)
 
+        img_ids = []
+        # que_ids = []
+
+        for qa in train_500_data.values():
+            img_ids.append(int(qa['image_id']))
+            # que_ids.append(qa['question_id'])
+        for qa in val_500_data.values():
+            img_ids.append(int(qa['image_id']))
+            # que_ids.append(qa['question_id'])
+
+        img_ids = list(set(img_ids))
+        img_ids.sort()
+        # que_ids = list(set(que_ids))
+
+        img_id2idx = {img_id: idx for idx, img_id in enumerate(img_ids)}
+        # que_id2idx = {que_id: idx for idx, que_id in enumerate(que_ids)}
+
+        with open(dump_path_1, 'wb') as fp:
+            pickle.dump(img_id2idx, fp)
+
+    def create_id2idx(self):
+        self._create_id2idx(self.dump_imgid2idx_path, self.dump_queid2idx_path)
+    
 
 
 if __name__ == '__main__':
@@ -98,3 +132,4 @@ if __name__ == '__main__':
     runner = Runner(cfg)
 
     runner.create_filtered_data()
+    runner.create_id2idx()

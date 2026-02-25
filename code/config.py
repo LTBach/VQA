@@ -117,17 +117,21 @@ class cfg():
         self.AOKVQA.exp_data_path = osp.join(self.AOKVQA.data_path, "exp_data")
         # /data/aokvqa/common_data
         self.AOKVQA.common_data_path = osp.join(self.AOKVQA.data_path, "common_data")
+        # /data/aokvqa/common_data/'aokvqa-resnet-14x14.h5'
+        self.AOKVQA.feature_path = osp.join(self.AOKVQA.common_data_path, 'aokvqa-resnet-14x14.h5')
 
-        # /data/aokvqa/exp_data/test_data
-        self.AOKVQA.test_data_path = osp.join(self.AOKVQA.exp_data_path, "test_data")
         # /data/aokvqa/exp_data/train_data
         self.AOKVQA.train_data_path = osp.join(self.AOKVQA.exp_data_path, "train_data")
-        # /data/aokvqa/exp_data/train_seen_data
-        self.AOKVQA.seen_train_data_path = osp.join(self.AOKVQA.exp_data_path, "train_seen_data")
-        # /data/aokvqa/exp_data/test_unseen_data
-        self.AOKVQA.unseen_test_data_path = osp.join(self.AOKVQA.exp_data_path, "test_unseen_data")
-        # /data/aokvqa/exp_data/test_seen_data
-        self.AOKVQA.seen_test_data_path = osp.join(self.AOKVQA.exp_data_path, "test_seen_data")
+        # /data/aokvqa/exp_data/val_data
+        self.AOKVQA.val_data_path = osp.join(self.AOKVQA.exp_data_path, "val_data")
+        # /data/aokvqa/exp_data/test_data
+        self.AOKVQA.test_data_path = osp.join(self.AOKVQA.exp_data_path, "test_data")
+        # # /data/aokvqa/exp_data/train_seen_data
+        # self.AOKVQA.seen_train_data_path = osp.join(self.AOKVQA.exp_data_path, "train_seen_data")
+        # # /data/aokvqa/exp_data/test_unseen_data
+        # self.AOKVQA.unseen_test_data_path = osp.join(self.AOKVQA.exp_data_path, "test_unseen_data")
+        # # /data/aokvqa/exp_data/test_seen_data
+        # self.AOKVQA.seen_test_data_path = osp.join(self.AOKVQA.exp_data_path, "test_seen_data")
 
         # /dump/aokvqa
         self.AOKVQA.dump_path = osp.join(self.dump_root, "aokvqa")
@@ -153,8 +157,6 @@ class cfg():
         # /data/aokvqa/exp_data/images
         self.AOKVQA.img_path = osp.join(self.AOKVQA.qa_path, 'images')
 
-        self.dataset = self.FVQA
-
         self.glove_path = osp.join(self.tranfer_model_root, 'GloVe_checkpoint')
 
         self.cache_path = osp.join(self.data_root, '.cache')
@@ -162,8 +164,6 @@ class cfg():
         self.embedding_size = 1024  # embedding dimensionality
         self.hidden_size = 2 * self.embedding_size  # hidden embedding
         # a joint question vocab across all dataset
-        # /data/fvqa/common_data_path/question.vocab.json
-        self.question_vocab_path = osp.join(self.FVQA.common_data_path, 'question.vocab.json')  # 修改这里之后所有的预存文件（pt）都要删除
 
         # preprocess config
         self.image_size = 448
@@ -205,6 +205,13 @@ class cfg():
         # choice model
         parser.add_argument('--fusion_model', default='SAN', choices=['MLP', 'SAN', 'UD', 'MUTAN', 'BAN', 'ViLBERT'])
         parser.add_argument('--requires_grad', default=0, type=int, choices=[0, 1])
+
+        # choice dateset
+        parser.add_argument('--dataset', default='FVQA', choices=['FVQA', 'AOKVQA'])
+
+        # choice embedding model
+        parser.add_argument('--embedding', default='GloVe', choices=['GloVe', 'CLIP'])
+
         # choice class
         parser.add_argument('--method_choice', default='W2V',
                             choices=['CLS', 'W2V', 'KG', 'GAE', 'KG_W2V', 'KG_GAE', 'GAE_W2V', 'KG_GAE_W2V'])
@@ -265,6 +272,8 @@ class cfg():
         self.top_fact = args.top_fact
         self.soft_score = args.soft_score
         self.mrr = args.mrr
+        self.dataset = args.dataset
+        self.embedding = args.embedding
 
         if args.ZSL == 1:
             print("ZSL setting...")
@@ -274,6 +283,10 @@ class cfg():
         if args.fusion_model == 'UD' or args.fusion_model == 'BAN':
             self.FVQA.feature_path = osp.join(self.FVQA.common_data_path, 'fvqa_36.hdf5')
             self.FVQA.img_id2idx = osp.join(self.FVQA.common_data_path, 'fvqa36_imgid2idx.pkl')
+
+            self.AOKVQA.feature_path = osp.join(self.AOKVQA.common_data_path, 'aokvqa_36.h5')
+            self.AOKVQA.img_id2idx = osp.join(self.AOKVQA.common_data_path, 'aokvq_imgid2idx.pkl')
+
         self.requires_grad = True if args.requires_grad == 1 else False
         self.fusion_model = args.fusion_model
         self.TRAIN.batch_size = args.batch_size
@@ -288,6 +301,20 @@ class cfg():
         self.FVQA.KGE_init = args.KGE_init
         self.FVQA.gae_init = args.GAE_init
         self.FVQA.entity_num = args.entity_num
+
+        if args.dataset == 'FVQA':
+            self.dataset = self.FVQA
+            self.question_vocab_path = osp.join(self.dataset.common_data_path, 'question.vocab.json')
+        if args.dataset == 'AOKVQA':
+            self.dataset = self.AOKVQA
+            self.question_vocab_path = osp.join(self.dataset.common_data_path, 'question.vocab.aokvqa.json')
+
+        # if self.embedding == 'GloVe':
+        #     self.embedding
+
+        # /data/{dataset}/common_data_path/question.vocab.json
+        # self.question_vocab_path = osp.join(self.dataset.common_data_path, 'question.vocab.json')
+
 
         if self.fact_map:
             self.FVQA.max_ans = 2791
