@@ -305,7 +305,7 @@ class Runner:
         save_path = os.path.join(self.args.FVQA.model_save_path, function)
         save_path = os.path.join(save_path, f'{target}_{model_name}_{self.args.FVQA.data_choice}.pkl')
 
-        model.load_state_dict(torch.load(save_path, map_location="cuda:0"))
+        model.load_state_dict(torch.load(save_path, map_location=torch.device('cpu')))
         print(f"loading {function} model done!")
 
     def _save_model(self, model, function):
