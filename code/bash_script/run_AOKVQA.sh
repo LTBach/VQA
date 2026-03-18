@@ -1,3 +1,4 @@
+data=4
 ke=10
 kr=3
 score=10
