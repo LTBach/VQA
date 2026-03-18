@@ -35,3 +35,20 @@ The generated files `answer.vocab.aokvqa.json` & `question.vocab.aokvqa.json` ar
 [--fact_map {0,1}] [--relation_map {0,1}] [--now_test {0,1}] [--save_model {0,1}] 
 [--joint_test_way {0,1}] [--top_rel TOP_REL] [--top_fact TOP_FACT] 
 [--soft_score SOFT_SCORE] [--mrr MRR]
+```
+
+# Running 
+- cd VQA/code
+
+Data check:
+- python deal_data.py --exp_name data_check
+
+General VQA:
+
+- train: bash run_FVQA_train.sh
+- test: bash run_FVQA.sh   
+
+General AOKVQA: 
+
+- train: bash run_AOKVQA_train.sh
+- test: bash run_AOKVQA.sh 
